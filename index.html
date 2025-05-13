@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menstrual Cup Size Finder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Menstrual Cup Size Finder</h1>
+    <form id="sizeForm">
+      <label for="age">Age:</label>
+      <input type="number" id="age" required>
+
+      <label for="parity">Have you given birth vaginally?</label>
+      <select id="parity">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <label for="flow">Menstrual Flow Intensity:</label>
+      <select id="flow">
+        <option value="light">Light</option>
+        <option value="moderate">Moderate</option>
+        <option value="heavy">Heavy</option>
+      </select>
+
+      <button type="submit">Find Size</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+label {
+  margin-top: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}document.getElementById('sizeForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const age = parseInt(document.getElementById('age').value);
+  const parity = document.getElementById('parity').value;
+  const flow = document.getElementById('flow').value;
+
+  let size = '';
+
+  if (age < 30) {
+    if (parity === 'no') {
+      size = 'Size 1';
+    } else {
+      size = 'Size 2';
+    }
+  } else {
+    if (parity === 'no') {
+      size = 'Size 2';
+    } else {
+      size = 'Size 3';
+    }
+  }
+
+  if (flow === 'heavy') {
+    size += ' (Consider larger capacity)';
+  }
+
+  document.getElementById('result').innerHTML = `Recommended Cup Size: <strong>${size}</strong>`;
+});
